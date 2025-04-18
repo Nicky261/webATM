@@ -24,9 +24,9 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // În aplicația reală, aici ar trebui să faceți o cerere către backend
+    // in realitate, aici e cerere catre backend
     
-    // Pentru demo, vom simula o autentificare reușită
+    // simulare autentificare reusita
     if (email === 'demo@example.com' && password === 'password') {
       localStorage.setItem('token', 'demo-token');
       localStorage.setItem('user', JSON.stringify({ email, name: 'Demo User' }));

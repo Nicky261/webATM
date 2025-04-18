@@ -56,24 +56,24 @@ function StockMarketComponent() {
     setError(null);
     
     try {
-      // În aplicația reală, aici ar fi cererea axios
+      // in realitate, aici ar fi cererea axios
       // const response = await axios.get(`https://api-endpoint/stock/${symbol}/period/${period}`);
       
-      // Pentru demo, generăm date fictive
+      // Pentru demo, generam date fictive
       const mockData = generateMockStockData(symbol, period);
       
       setTimeout(() => {
         setStockData(mockData.data);
         setStats(mockData.stats);
         setLoading(false);
-      }, 1000); // Simulăm un delay de rețea
+      }, 1000); // simulam un delay de rețea
     } catch (err) {
       setError('A apărut o eroare la încărcarea datelor. Te rugăm să încerci din nou.');
       setLoading(false);
     }
   };
 
-  // Funcție helper pentru a genera date mock
+  // helper pentru a genera date mock
   const generateMockStockData = (symbol, period) => {
     const today = new Date();
     const data = [];
@@ -96,20 +96,20 @@ function StockMarketComponent() {
         numberOfDays = 30;
     }
     
-    // Generăm un preț de start aleatoriu între 50 și 500
+    // generare pret de start aleatoriu între 50 și 500
     let basePrice = Math.floor(Math.random() * 450) + 50;
     let trend = Math.random() > 0.5 ? 1 : -1; // tendință aleatorie
     
-    // Adăugăm un element pentru fiecare zi
+    // adaugam un element pentru fiecare zi
     for (let i = numberOfDays; i >= 0; i--) {
       const date = new Date();
       date.setDate(today.getDate() - i);
       
-      // Fluctuație zilnică între -3% și +3%
+      // fluctuatie zilnica între -3% si +3%
       const dailyChange = (Math.random() * 0.06 - 0.03 + (trend * 0.005)) * basePrice;
       basePrice += dailyChange;
       
-      // Ne asigurăm că prețul nu scade sub 10
+      // asiguram ca pretul nu scade sub 10
       basePrice = Math.max(basePrice, 10);
       
       data.push({
@@ -119,7 +119,7 @@ function StockMarketComponent() {
       });
     }
     
-    // Calculăm câteva statistici
+    // Calculam cateva statistici
     const lastPrice = data[data.length - 1].price;
     const firstPrice = data[0].price;
     const change = lastPrice - firstPrice;
@@ -128,7 +128,7 @@ function StockMarketComponent() {
     const min = Math.min(...data.map(item => item.price));
     const max = Math.max(...data.map(item => item.price));
     
-    // Calculăm mediile mobile
+    // Calculam mediile mobile
     const sma10 = calculateSMA(data, 10);
     const sma30 = calculateSMA(data, 30);
     
@@ -147,7 +147,7 @@ function StockMarketComponent() {
     };
   };
   
-  // Funcție pentru calculul mediei mobile (Simple Moving Average)
+  // Functie pentru calculul mediei mobile (Simple Moving Average)
   const calculateSMA = (data, period) => {
     if (data.length < period) return null;
     
@@ -156,7 +156,7 @@ function StockMarketComponent() {
     return parseFloat((sum / period).toFixed(2));
   };
 
-  // Formatăm datele pentru grafic, inclusiv mediile mobile
+  // Formatam datele pentru grafic, inclusiv mediile mobile
   const formatChartData = () => {
     if (!stockData) return [];
     
@@ -165,13 +165,13 @@ function StockMarketComponent() {
       let sma30 = null;
       
       if (index >= 9) {
-        // Calculăm SMA-10 pentru acest punct
+        // Calculam SMA-10 pentru acest punct
         sma10 = array.slice(index - 9, index + 1)
           .reduce((sum, item) => sum + item.price, 0) / 10;
       }
       
       if (index >= 29) {
-        // Calculăm SMA-30 pentru acest punct
+        // Calculam SMA-30 pentru acest punct
         sma30 = array.slice(index - 29, index + 1)
           .reduce((sum, item) => sum + item.price, 0) / 30;
       }
@@ -386,7 +386,7 @@ function StockMarketComponent() {
                     dataKey="date" 
                     tick={{ fontSize: 12 }}
                     tickFormatter={(value) => {
-                      // Afișăm doar o parte din datele pe axa X pentru a evita aglomerarea
+                      // afisam doar o parte din datele pe axa X pentru a evita aglomerarea
                       const date = new Date(value);
                       return `${date.getDate()}/${date.getMonth() + 1}`;
                     }}

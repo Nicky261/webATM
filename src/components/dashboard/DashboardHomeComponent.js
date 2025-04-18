@@ -24,7 +24,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import SchoolIcon from '@mui/icons-material/School';
 
 function DashboardHomeComponent() {
-  // Date simulată pentru activități recente
+  // Date sim. pentru activ. recente
   const recentActivities = [
     { id: 1, type: 'dataset', title: 'Ai încărcat setul de date "Vânzări 2024.csv"', time: '2 ore în urmă' },
     { id: 2, type: 'post', title: 'Ana Popescu a comentat la postarea ta', time: '5 ore în urmă' },
@@ -32,21 +32,21 @@ function DashboardHomeComponent() {
     { id: 4, type: 'post', title: 'Postarea ta a primit 5 aprecieri noi', time: '2 zile în urmă' }
   ];
 
-  // Date simulată pentru proiecte active
+  // Date sim. pentru proiecte active
   const activeProjects = [
     { id: 1, title: 'Analiză sentiment recenzii', progress: 70, group: 'Machine Learning Enthusiasts' },
     { id: 2, title: 'Predicție prețuri imobiliare', progress: 40, group: 'Data Science Club' },
     { id: 3, title: 'Vizualizare COVID-19', progress: 90, group: 'Data Visualization Club' }
   ];
 
-  // Date simulată pentru cursuri recomandate
+  // Date sim. pentru cursuri recomandate
   const recommendedCourses = [
     { id: 1, title: 'Python pentru Data Science', level: 'Începător', duration: '20 ore' },
     { id: 2, title: 'Machine Learning Fundamentals', level: 'Intermediar', duration: '35 ore' },
     { id: 3, title: 'Visualization with D3.js', level: 'Avansat', duration: '25 ore' }
   ];
 
-  // Funcție pentru a obține iconița corespunzătoare tipului de activitate
+  // iconita coresp pt tipului de activitate
   const getActivityIcon = (type) => {
     switch (type) {
       case 'dataset':
@@ -169,7 +169,7 @@ function DashboardHomeComponent() {
         </Grid>
       </Grid>
 
-      {/* Activități recente și proiecte */}
+      {/* activ recente & proiecte */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={6}>
           <Card elevation={3}>
@@ -245,7 +245,7 @@ function DashboardHomeComponent() {
         </Grid>
       </Grid>
 
-      {/* Cursuri recomandate */}
+      {/* cursuri recomandate */}
       <Card elevation={3} sx={{ mb: 4 }}>
         <CardHeader 
           title="Cursuri recomandate" 

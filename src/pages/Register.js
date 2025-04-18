@@ -27,15 +27,15 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validare simplă
+    // Validare naiva
     if (password !== confirmPassword) {
       setError('Parolele nu coincid');
       return;
     }
     
-    // În aplicația reală, aici ar trebui să faceți o cerere către backend
+    // cerere catre backend...
     
-    // Pentru demo, vom simula o înregistrare reușită
+    // Pentru demo, vom simula o inregistrare reusita
     localStorage.setItem('token', 'demo-token');
     localStorage.setItem('user', JSON.stringify({ email, name }));
     window.location.href = '/dashboard';

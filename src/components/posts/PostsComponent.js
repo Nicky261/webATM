@@ -82,7 +82,7 @@ function PostsComponent() {
     title: '',
     content: '',
     tags: '',
-    category: 'code' // valoare implicită
+    category: 'code' // valoare implicita
   });
   const [commentDialogOpen, setCommentDialogOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
@@ -90,17 +90,17 @@ function PostsComponent() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedPostId, setSelectedPostId] = useState(null);
 
-  // Funcție pentru deschiderea dialogului de creare post
+  // Functie pentru deschiderea dialogului de creare post
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
 
-  // Funcție pentru închiderea dialogului de creare post
+  // Functie pentru inchiderea dialogului de creare post
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
 
-  // Funcție pentru modificarea câmpurilor formularului de post nou
+  // Functie pentru modificarea campurilor formularului de post nou
   const handleNewPostChange = (e) => {
     const { name, value } = e.target;
     setNewPost({
@@ -109,7 +109,7 @@ function PostsComponent() {
     });
   };
 
-  // Funcție pentru adăugarea unui post nou
+  // Functie pentru adaugarea unui post nou
   const handleAddPost = () => {
     const tagsArray = newPost.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
     
@@ -138,7 +138,7 @@ function PostsComponent() {
     handleCloseDialog();
   };
 
-  // Funcții pentru gestionarea like-urilor
+  // Functii pentru gestionarea like-urilor
   const handleLike = (postId) => {
     setPosts(
       posts.map((post) =>
@@ -147,7 +147,7 @@ function PostsComponent() {
     );
   };
 
-  // Funcții pentru gestionarea comentariilor
+  // Functii pentru gestionarea comentariilor
   const handleOpenCommentDialog = (post) => {
     setCurrentPost(post);
     setCommentDialogOpen(true);
@@ -171,7 +171,7 @@ function PostsComponent() {
     }
   };
 
-  // Funcții pentru meniul de acțiuni pe post
+  // Functii pentru meniul de actiuni pe post
   const handleMenuOpen = (event, postId) => {
     setAnchorEl(event.currentTarget);
     setSelectedPostId(postId);
@@ -187,7 +187,7 @@ function PostsComponent() {
     handleMenuClose();
   };
 
-  // Funcție helper pentru a obține icoana categoriei
+  // Funcrie helper pentru a obtine icoana categoriei
   const getCategoryIcon = (category) => {
     switch (category) {
       case 'code':
@@ -203,7 +203,7 @@ function PostsComponent() {
     }
   };
 
-  // Funcție helper pentru formatarea datei
+  // func helper pentru formatarea datei
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('ro-RO', options);
@@ -224,7 +224,7 @@ function PostsComponent() {
         </Button>
       </Box>
 
-      {/* Dialog pentru crearea unei postări noi */}
+      {/* Dialog pentru crearea unei postari noi */}
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
         <DialogTitle>Creează o postare nouă</DialogTitle>
         <DialogContent>
@@ -295,7 +295,7 @@ function PostsComponent() {
         </DialogActions>
       </Dialog>
 
-      {/* Dialog pentru adăugarea unui comentariu */}
+      {/* Dialog pentru adaugarea unui comentariu */}
       <Dialog open={commentDialogOpen} onClose={handleCloseCommentDialog}>
         <DialogTitle>Adaugă un comentariu</DialogTitle>
         <DialogContent>
@@ -325,7 +325,7 @@ function PostsComponent() {
         </DialogActions>
       </Dialog>
 
-      {/* Lista de postări */}
+      {/* Lista de postari */}
       <Grid container spacing={3}>
         {posts.map((post) => (
           <Grid item xs={12} key={post.id}>
@@ -398,7 +398,7 @@ function PostsComponent() {
         ))}
       </Grid>
 
-      {/* Meniu pentru acțiuni pe postare */}
+      {/* Meniu pentru actiuni pe postare */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

@@ -7,10 +7,10 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  // Verificăm dacă există o preferință salvată în localStorage
+  // verif. daca exista o preferinta salvata in localStorage
   const [mode, setMode] = useState(localStorage.getItem('themeMode') || 'light');
 
-  // Creăm tema în funcție de mode
+  // cream tema in func de mode
   const theme = useMemo(
     () =>
       createTheme({
@@ -31,7 +31,7 @@ export const ThemeProvider = ({ children }) => {
     [mode],
   );
 
-  // Funcție pentru schimbarea temei
+  // func pentru schimbarea temei
   const toggleTheme = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     setMode(newMode);

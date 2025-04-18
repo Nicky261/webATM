@@ -26,13 +26,13 @@ function FileUploadComponent() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [error, setError] = useState('');
 
-  // Gestionare selectare fișiere
+  // Gestionare selectare fisiere
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
     setFiles(selectedFiles);
   };
 
-  // Verificare tipuri de fișiere (pentru platformă de data science)
+  // Verificare tipuri de fisier
   const isValidFileType = (file) => {
     const validTypes = ['text/csv', 'application/vnd.ms-excel', 
                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -40,14 +40,14 @@ function FileUploadComponent() {
     return validTypes.includes(file.type) || file.name.endsWith('.py') || file.name.endsWith('.ipynb');
   };
 
-  // Simulăm încărcarea fișierelor
+  // Simulam incarcarea fisierelor
   const handleUpload = () => {
     if (files.length === 0) {
       setError('Te rog selectează cel puțin un fișier.');
       return;
     }
 
-    // Verificăm dacă toate fișierele sunt valide
+    // verif. dacă toate fisierele sunt valide
     const invalidFiles = files.filter(file => !isValidFileType(file));
     if (invalidFiles.length > 0) {
       setError(`Următoarele fișiere nu sunt acceptate: ${invalidFiles.map(f => f.name).join(', ')}. 
@@ -59,13 +59,13 @@ function FileUploadComponent() {
     setUploading(true);
     setUploadProgress(0);
 
-    // Simulăm procesul de încărcare
+    // simulam procesul de upload
     const interval = setInterval(() => {
       setUploadProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
           setUploading(false);
-          // Adăugăm fișierele la lista de fișiere încărcate
+          // adaug fisierele la lista de fisiere incarcate
           setUploadedFiles(prevFiles => [...prevFiles, ...files.map(file => ({
             name: file.name,
             size: file.size,
@@ -80,24 +80,24 @@ function FileUploadComponent() {
     }, 200);
   };
 
-  // Funcție pentru a șterge un fișier din lista de fișiere selectate
+  // func pentru a sterge un fisier din lista de fisiere selectate
   const removeFile = (index) => {
     setFiles(files.filter((_, i) => i !== index));
   };
 
-  // Funcție pentru a șterge un fișier din lista de fișiere încărcate
+  // func pentru a sterge un fisier din lista de fisiere incarcate
   const removeUploadedFile = (index) => {
     setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
   };
 
-  // Funcție pentru a formata dimensiunea fișierului
+  // func. pentru a formata dimensiunea fisier
   const formatFileSize = (bytes) => {
     if (bytes < 1024) return bytes + ' bytes';
     else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     else return (bytes / 1048576).toFixed(1) + ' MB';
   };
 
-  // Funcție pentru a obține tipul de fișier pentru afișare
+  // func pentru a obtine tipul de fisier pentru afisare
   const getFileTypeLabel = (file) => {
     if (file.type === 'text/csv' || file.name.endsWith('.csv')) return 'CSV';
     if (file.type.includes('spreadsheetml') || file.type.includes('excel') || 

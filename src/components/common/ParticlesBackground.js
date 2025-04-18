@@ -7,7 +7,6 @@ const ParticlesBackground = ({ theme }) => {
     await loadSlim(engine);
   }, []);
 
-  // Configurări diferite pentru tema light și dark
   const lightConfig = {
     particles: {
       number: {

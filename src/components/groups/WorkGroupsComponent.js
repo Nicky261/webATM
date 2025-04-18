@@ -158,40 +158,40 @@ function WorkGroupsComponent() {
     handleCloseDialog();
   };
 
-  // Funcție pentru deschiderea dialogului de grup
+  // func pentru deschiderea dialogului de grup
   const handleOpenGroupDialog = (group) => {
     setSelectedGroup(group);
     setOpenGroupDialog(true);
   };
 
-  // Funcție pentru închiderea dialogului de grup
+  // func pentru închiderea dialogului de grup
   const handleCloseGroupDialog = () => {
     setOpenGroupDialog(false);
     setTabValue(0);
   };
 
-  // Funcție pentru schimbarea tab-ului în dialogul de grup
+  // func pentru schimbarea tab-ului in dialogul de grup
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
 
-  // Funcție pentru deschiderea dialogului de membri
+  // func pentru deschiderea dialogului de membri
   const handleOpenMembersDialog = () => {
     setOpenMembersDialog(true);
   };
 
-  // Funcție pentru închiderea dialogului de membri
+  // func pentru inchiderea dialogului de membri
   const handleCloseMembersDialog = () => {
     setOpenMembersDialog(false);
     setSearchMember('');
   };
 
-  // Funcție pentru adăugarea unui membru în grup
+  // func pentru adaugarea unui membru în grup
   const handleAddMember = (user) => {
     if (selectedGroup) {
       const updatedGroups = groups.map(group => {
         if (group.id === selectedGroup.id) {
-          // Verificăm dacă utilizatorul este deja membru
+          // verif daca utilizatorul este deja membru
           if (!group.members.some(member => member.id === user.id)) {
             return {
               ...group,
@@ -207,7 +207,7 @@ function WorkGroupsComponent() {
     }
   };
 
-  // Funcție pentru eliminarea unui membru din grup
+  // funct pentru eliminarea unui membru din grup
   const handleRemoveMember = (memberId) => {
     if (selectedGroup) {
       const updatedGroups = groups.map(group => {
@@ -225,7 +225,7 @@ function WorkGroupsComponent() {
     }
   };
 
-  // Funcție pentru părăsirea unui grup
+  // funct pentru parasirea unui grup
   const handleLeaveGroup = (groupId) => {
     const updatedGroups = groups.filter(group => group.id !== groupId);
     setGroups(updatedGroups);
@@ -234,7 +234,7 @@ function WorkGroupsComponent() {
     }
   };
 
-  // Filtrarea utilizatorilor pentru adăugare în grup
+  // Filtrarea utilizatorilor pentru adaugare în grup
   const filteredUsers = MOCK_USERS.filter(user => {
     const isAlreadyMember = selectedGroup?.members.some(member => member.id === user.id);
     const matchesSearch = user.name.toLowerCase().includes(searchMember.toLowerCase());
@@ -310,7 +310,7 @@ function WorkGroupsComponent() {
         </DialogActions>
       </Dialog>
 
-      {/* Dialog pentru vizualizarea și gestionarea grupului */}
+      {/* Dialog pentru vizualizarea si gestionarea grupului */}
       <Dialog open={openGroupDialog} onClose={handleCloseGroupDialog} maxWidth="md" fullWidth>
         {selectedGroup && (
           <>
@@ -498,7 +498,7 @@ function WorkGroupsComponent() {
         )}
       </Dialog>
 
-      {/* Dialog pentru adăugarea membrilor */}
+      {/* Dialog pentru adaugarea membrilor */}
       <Dialog open={openMembersDialog} onClose={handleCloseMembersDialog} maxWidth="sm" fullWidth>
         <DialogTitle>Adaugă membri noi</DialogTitle>
         <DialogContent>

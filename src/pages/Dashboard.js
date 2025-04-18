@@ -12,19 +12,38 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
+import { Avatar } from '@mui/material';
+//import { Link as RouterLink } from 'react-router-dom';
+
 import FileUploadComponent from '../components/fileUpload/FileUploadComponent';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import StockMarketComponent from '../components/stockMarket/StockMarketComponent';
 
 import { useTheme } from '../contexts/ThemeContext';
-// În componenta Dashboard, adaugă:
 
 import PostsComponent from '../components/posts/PostsComponent';
 import WorkGroupsComponent from '../components/groups/WorkGroupsComponent';
 
 import DashboardHomeComponent from '../components/dashboard/DashboardHomeComponent';
 
-// Importăm componentele dashboard (vom crea aceste componente mai târziu)
+
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+
+import ProfileSettings from '../components/profile/ProfileSettings';
+import ProfilePage from '../components/profile/ProfilePage';
+import { useAuth } from '../contexts/AuthContext';
+
+import CodeEditorComponent from '../components/codeEditor/CodeEditorComponent';
+import CodeIcon from '@mui/icons-material/Code';
+
+const CodeEditor = () => (
+    <Box sx={{ mt: 3 }}>
+      <CodeEditorComponent />
+    </Box>
+  );
+
+
 const DashboardHome = () => (
     <Box sx={{ mt: 3 }}>
       <DashboardHomeComponent />
@@ -66,19 +85,21 @@ function Dashboard() {
 
   const { mode, toggleTheme } = useTheme();
 
-  // Funcție pentru gestionarea deschiderii/închiderii drawer-ului
+  // func pentru gestionarea deschiderii/inchiderii drawer-ului
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  // Funcție pentru logout
+
+  const { logout, currentUser } = useAuth();
+  // func pentru logout
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/login');
   };
 
-  // Obținem informațiile utilizatorului (în aplicația reală acestea ar veni de la backend)
+  // obtine inf utilizatorului (in realitate acestea ar veni de la backend)
   const user = JSON.parse(localStorage.getItem('user') || '{"name": "Utilizator"}');
 
   const menuItems = [
@@ -86,7 +107,10 @@ function Dashboard() {
     { text: 'Încărcare fișiere', icon: <UploadFileIcon />, path: '/dashboard/upload' },
     { text: 'Postări', icon: <ArticleIcon />, path: '/dashboard/posts' },
     { text: 'Grupuri de lucru', icon: <GroupIcon />, path: '/dashboard/groups' },
-    { text: 'Analiză Bursă', icon: <BarChartIcon />, path: '/dashboard/stocks' }
+    { text: 'Analiză Bursă', icon: <BarChartIcon />, path: '/dashboard/stocks' },
+    { text: 'Editor de Cod', icon: <CodeIcon />, path: '/dashboard/code-editor' },
+    { text: 'Profil', icon: <PersonIcon />, path: '/dashboard/profile' },
+    { text: 'Setări profil', icon: <SettingsIcon />, path: '/dashboard/settings' }
   ];
 
   return (
@@ -94,31 +118,41 @@ function Dashboard() {
       {/* AppBar */}
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
+            <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={toggleDrawer}
             sx={{ mr: 2 }}
-          >
+            >
             <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            DataLearn Platform
-          </Typography>
-          <Typography variant="subtitle1" sx={{ mr: 2 }}>
-            Bine ai venit, {user.name}
-          </Typography>
-
-          <IconButton color="inherit" onClick={toggleTheme} sx={{ mr: 1 }}>
-             {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
-
-          <IconButton color="inherit" onClick={handleLogout}>
+            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            DataLearn Platform
+            </Typography>
+            
+            <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+            <Avatar 
+                src={currentUser?.avatarUrl} 
+                sx={{ width: 32, height: 32, mr: 1 }}
+                component={RouterLink}
+                to="/dashboard/profile"
+            >
+                {currentUser?.displayName?.[0] || user.name[0]}
+            </Avatar>
+            <Typography variant="subtitle1">
+                {currentUser?.displayName || user.name}
+            </Typography>
+            </Box>
+            
+            <IconButton color="inherit" onClick={toggleTheme} sx={{ mr: 1 }}>
+            {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+            <IconButton color="inherit" onClick={handleLogout}>
             <LogoutIcon />
-          </IconButton>
+            </IconButton>
         </Toolbar>
-      </AppBar>
+    </AppBar>
 
       {/* Drawer (Sidebar) */}
       <Drawer
@@ -126,7 +160,7 @@ function Dashboard() {
         open={open}
         onClose={toggleDrawer}
         ModalProps={{
-          keepMounted: true, // Pentru performanță mai bună pe mobile
+          keepMounted: true, // pentru mobile
         }}
         sx={{
           '& .MuiDrawer-paper': { 
@@ -165,9 +199,9 @@ function Dashboard() {
         </Box>
       </Drawer>
 
-      {/* Conținutul principal */}
+      {/* continut principal */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar /> {/* Acest spațiu asigură că conținutul nu este ascuns sub AppBar */}
+        <Toolbar /> 
         <Container>
           <Routes>
             <Route path="/" element={<DashboardHome />} />
@@ -175,6 +209,10 @@ function Dashboard() {
             <Route path="/posts" element={<Posts />} />
             <Route path="/groups" element={<WorkGroups />} />
             <Route path="/stocks" element={<StockMarket />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/code-editor" element={<CodeEditor />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route path="/settings" element={<ProfileSettings />} />
           </Routes>
         </Container>
       </Box>
